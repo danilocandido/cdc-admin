@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery'; //apelido -> $ from 'jquery'
 import InputCustomizado from './componentes/InputCustomizado';
+import PubSub from 'pubsub-js';
 
 class FormularioAutor extends Component {
 
@@ -40,9 +41,10 @@ class FormularioAutor extends Component {
       dataType: 'json',
       type: 'post',
       data: JSON.stringify( {nome: this.state.nome, email: this.state.email, senha: this.state.senha} ),
-      success: function(resposta){
-        this.props.callbackAtualizaListagem(resposta);
-      }.bind(this),
+      success: function(novaListagem){
+        //Estamos usando esse canal pra divulgar a nova lista.
+        PubSub.publish('atualiza-listagem-autores', novaListagem);
+      },
       error: function(resposta){
         console.log('erro');
       }
@@ -98,7 +100,6 @@ export default class AutorBox extends Component{
   constructor() {
     super();
     this.state = { lista: [] };
-    this.atualizaListagem = this.atualizaListagem.bind(this);
   }
 
   //Componente acabou de ser montado - depois do render
@@ -112,17 +113,19 @@ export default class AutorBox extends Component{
         this.setState({lista: resposta}); //toda vez q o setState é chamado o render vai ser chamado depois
       }.bind(this) //Aqui usamos a function bind() pra dizer que queremos usar o this do react e não o do jquery
     });
-  }
 
-  atualizaListagem(novaLista){
-    this.setState({lista: novaLista});
+    //Estamos escutando o 'atualiza-listagem-autores' e recebemos a nova lista
+    PubSub.subscribe('atualiza-listagem-autores', function(topico, novaLista){
+      this.setState({lista: novaLista});
+    }.bind(this));
+    //
   }
 
   render() {
     return (
       <div>
-        <FormularioAutor callbackAtualizaListagem={this.atualizaListagem}></FormularioAutor>
-        <TabelaAutores lista={this.state.lista}></TabelaAutores>    
+        <FormularioAutor/>
+        <TabelaAutores lista={this.state.lista}/>
       </div>
     );
   }
