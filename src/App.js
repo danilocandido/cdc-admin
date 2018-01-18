@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-import { FormularioAutor, TabelaAutores } from './Autor';
+import AutorBox from './Autor';
 
 // java -Dspring.datasource.password=root -jar cdcreact-1.0.0-SNAPSHOT.jar 
 
@@ -37,8 +37,7 @@ class App extends Component {
           </div>
           
           <div className="content" id="content">
-            <FormularioAutor></FormularioAutor>
-            <TabelaAutores></TabelaAutores>
+            <AutorBox></AutorBox>
           </div>
         </div> 
     </div>
