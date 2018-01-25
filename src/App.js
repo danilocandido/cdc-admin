@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
 import AutorBox from './Autor';
+import { Link } from 'react-router-dom'
 
 // java -Dspring.datasource.password=root -jar cdcreact-1.0.0-SNAPSHOT.jar 
 
