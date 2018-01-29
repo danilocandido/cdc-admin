@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery'; //apelido -> $ from 'jquery'
 import InputCustomizado from './componentes/InputCustomizado';
 import PubSub from 'pubsub-js';
-import TratadorErros from './TratadorErros'
+import TratadorErros from './TratadorErros';
 
 class FormularioAutor extends Component {
 
@@ -127,7 +127,6 @@ export default class AutorBox extends Component{
 
   render() {
     return (
-      
       <div>
         <div className="header">
           <h1>Cadastro de Autores</h1>
