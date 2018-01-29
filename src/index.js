@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import AutorBox from './Autor';
+import Home from './Home'
 
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
-    <Route exact path="/" component={App}/>
-
+    <App>
+      <Switch>            
+          <Route exact path="/" component={Home}/>
+          <Route path="/autor" component={AutorBox}/>
+      </Switch>            
+    </App>
   </Router>,
   document.getElementById('root')
 );
